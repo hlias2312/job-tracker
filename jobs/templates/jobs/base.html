@@ -8,7 +8,14 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark px-4">
-    <span class="navbar-brand">🎯 Job Tracker</span>
+    <div class="d-flex align-items-center gap-3">
+        <span class="navbar-brand mb-0">🎯 Job Tracker</span>
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-light btn-sm">Dashboard</a>
+        <a href="{% url 'job_list' %}" class="btn btn-outline-light btn-sm">All Jobs</a>
+        <a href="{% url 'job_create' %}" class="btn btn-outline-light btn-sm">+ Add New</a>
+        {% endif %}
+    </div>
     {% if user.is_authenticated %}
     <div>
         <span class="text-white me-3">{{ user.username }}</span>

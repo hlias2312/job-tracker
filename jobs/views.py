@@ -44,3 +44,23 @@ def job_delete(request, pk):
         messages.success(request, 'Application deleted!')
         return redirect('job_list')
     return render(request, 'jobs/job_confirm_delete.html', {'job': job})
+
+
+@login_required
+def dashboard(request):
+    jobs = JobApplication.objects.filter(user=request.user)
+    total = jobs.count()
+    applied = jobs.filter(status='applied').count()
+    interview = jobs.filter(status='interview').count()
+    offer = jobs.filter(status='offer').count()
+    rejected = jobs.filter(status='rejected').count()
+
+    context = {
+        'total': total,
+        'applied': applied,
+        'interview': interview,
+        'offer': offer,
+        'rejected': rejected,
+        'recent_jobs': jobs.order_by('-date_applied')[:5],
+    }
+    return render(request, 'jobs/dashboard.html', context)
