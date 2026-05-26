@@ -8,3 +8,4 @@ class JobApplicationForm(forms.ModelForm):
         widgets = {
             'notes': forms.Textarea(attrs={'rows': 3}),
         }
+

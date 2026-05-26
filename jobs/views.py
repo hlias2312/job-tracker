@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import JobApplication
 from .forms import JobApplicationForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 @login_required
 def job_list(request):
@@ -64,3 +66,14 @@ def dashboard(request):
         'recent_jobs': jobs.order_by('-date_applied')[:5],
     }
     return render(request, 'jobs/dashboard.html', context)
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('dashboard')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
