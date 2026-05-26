@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['job-tracker-production-f6c4.up.railway.app', 'localhost', '127.0.0.1']
 
 
+
+CSRF_TRUSTED_ORIGINS = ['https://job-tracker-production-f6c4.up.railway.app']
+
+
 # Application definition
 
 INSTALLED_APPS = [
